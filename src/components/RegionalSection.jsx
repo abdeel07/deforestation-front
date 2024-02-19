@@ -6,12 +6,12 @@ import { RiStarSLine } from "react-icons/ri";
 import FormForRegional from "./FormForRegional";
 import Login from './Login';
 import { useAuth } from '../contexts/AuthContext';
-
-
-
+import axios from 'axios';
 import { BiLike } from "react-icons/bi";
 import CommentPopup from './CommentPopup';
+
 const ImpactSection = () => {
+
 	const [isFormVisible, setFormVisibility] = useState(false);
 	// const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [showLoginPopup, setShowLoginPopup] = useState(false);
@@ -19,6 +19,28 @@ const ImpactSection = () => {
 	const [products, setProducts] = useState([]);
 	const [isCommentPopupVisible, setCommentPopupVisibility] = useState(false);
 	const [comment, setComment] = useState("");
+
+	const [newsItems, setNewsItems] = useState([]);
+
+	useEffect(() => {
+		const fetchRegionalNews = async () => {
+			try {
+				const response = await axios.get('http://localhost:8080/api/posts/type/Regional');
+
+				if (response.status === 200) {
+					console.log('Fetched regional news:', response.data);
+					setNewsItems(response.data);
+				} else {
+					throw new Error('Failed to fetch regional news');
+				}
+			} catch (error) {
+				console.error('Error fetching regional news:', error);
+			}
+		};
+
+		fetchRegionalNews();
+	}, []);
+
 	const handleAddNewsClick = () => {
 		setFormVisibility(true);
 	};
@@ -84,157 +106,23 @@ const ImpactSection = () => {
 
 
 						<div className="overflow-hidden flex flex-col gap-4">
-							<div className="rounded-lg shadow-lg border border-gray-300 bg-white p-4 flex gap-4 items-start justify-between">
-								<img
-									src="https://picsum.photos/200/200?random=1"
-									className=" h-[100px] object-contain rounded-md border border-solid shadow-md"
-									alt="news"
-								/>
-
-								<div className="flex-grow flex flex-col gap-2">
-									<a href="/">
-										<h5 className=" text-xl leading-[33px] text-black font-medium">
-											Lorem ipsum dolor sit amet.
-										</h5>
-									</a>
-
-									<div className="text-base text-justify leading-6 text-secondary">
-										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, voluptatum?</p>
-										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto perspiciatis laboriosam ipsum, doloribus sint voluptatibus numquam tempora excepturi nisi cum recusandae ipsa asperiores dicta illum debitis quae deserunt dolorem ullam?</p>
-									</div>
-									<div className="flex gap-4">
-										<a
-											href="/"
-											className="underline text-green-600 hover:text-green-800 font-bold transition-colors duration-200"
-										>
-											View Details
-										</a>
-										<a
-											href="/"
-											className="underline text-green-600 hover:text-green-800 font-bold transition-colors duration-200"
-										>
-											Add Bookmark
-										</a>
-									</div>
-
-									<div className='flex flex-row mb-5'>
-										<BiLike className="mr-2" />
-										<IoShareSocial className="mr-2" />
-										{/* Button to open comment popup */}
-										<button onClick={handleCommentClick} className="mr-2" >Comment</button>
-										<RiStarSLine /> <RiStarSLine /> <RiStarSLine />
-									</div>
-
-								</div>
-							</div>
-							<div className="rounded-lg shadow-lg border border-gray-300 bg-white p-4 flex gap-4 items-start justify-between">
-								<img
-									src="https://picsum.photos/200/200?random=2"
-									className=" h-[100px] object-contain rounded-md border border-solid shadow-md"
-									alt="news"
-								/>
-
-								<div className="flex-grow flex flex-col gap-2">
-									<a href="/">
-										<h5 className=" text-xl leading-[33px] text-black font-medium">
-											Lorem ipsum dolor sit amet.
-										</h5>
-									</a>
-
-									<div className="text-base text-justify leading-6 text-secondary">
-										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, voluptatum?</p>
-										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto perspiciatis laboriosam ipsum, doloribus sint voluptatibus numquam tempora excepturi nisi cum recusandae ipsa asperiores dicta illum debitis quae deserunt dolorem ullam?</p>
-									</div>
-									<div className="flex gap-4">
-										<a
-											href="/"
-											className="underline text-green-600 hover:text-green-800 font-bold transition-colors duration-200"
-										>
-											View Details
-										</a>
-										<a
-											href="/"
-											className="underline text-green-600 hover:text-green-800 font-bold transition-colors duration-200"
-										>
-											Add Bookmark
-										</a>
-									</div>
-
-
-									<div className='flex flex-row mb-5'>
-										<BiLike className="mr-2" />
-										<IoShareSocial className="mr-2" />
-										{/* Button to open comment popup */}
-										<button onClick={handleCommentClick} className="mr-2" >Comment</button>
-										<RiStarSLine /> <RiStarSLine /> <RiStarSLine />  <RiStarSLine />  <RiStarSLine />
-									</div>
-
-								</div>
-							</div>
-							<div className="rounded-lg shadow-lg border border-gray-300 bg-white p-4 flex gap-4 items-start justify-between">
-								<img
-									src="https://picsum.photos/200/200?random=3"
-									className=" h-[100px] object-contain rounded-md border border-solid shadow-md"
-									alt="news"
-								/>
-
-								<div className="flex-grow flex flex-col gap-2">
-									<a href="/">
-										<h5 className=" text-xl leading-[33px] text-black font-medium">
-											Lorem ipsum dolor sit amet.
-										</h5>
-									</a>
-
-									<div className="text-base text-justify leading-6 text-secondary">
-										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, voluptatum?</p>
-										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto perspiciatis laboriosam ipsum, doloribus sint voluptatibus numquam tempora excepturi nisi cum recusandae ipsa asperiores dicta illum debitis quae deserunt dolorem ullam?</p>
-									</div>
-									<div className="flex gap-4">
-										<a
-											href="/"
-											className="underline text-green-600 hover:text-green-800 font-bold transition-colors duration-200"
-										>
-											View Details
-										</a>
-										<a
-											href="/"
-											className="underline text-green-600 hover:text-green-800 font-bold transition-colors duration-200"
-										>
-											Add Bookmark
-										</a>
-									</div>
-
-
-									<div className='flex flex-row mb-5'>
-										<BiLike className="mr-2" />
-										<IoShareSocial className="mr-2" />
-										{/* Button to open comment popup */}
-										<button onClick={handleCommentClick} className="mr-2" >Comment</button>
-										<RiStarSLine /> <RiStarSLine />
-									</div>
-								</div>
-							</div>
-						</div>
-						<div>
-
-							<div>
-								{products.map(product => (
-									<div key={product.id} className="rounded-lg shadow-lg border border-gray-300 bg-white p-4 flex gap-4 items-start justify-between">
+							{
+								newsItems.map((item, index) => (
+									<div className="rounded-lg shadow-lg border border-gray-300 bg-white p-4 flex gap-4 items-start justify-between">
 										<img
-											src={product.imageUrl}
-											alt={`Image for ${product.name}`}
-											className="h-[100px]  object-contain  rounded-md border border-solid shadow-md"
+											src={item.imageUrl}
+											className=" h-[100px] object-contain rounded-md border border-solid shadow-md"
+											alt="news"
 										/>
-
 										<div className="flex-grow flex flex-col gap-2">
 											<a href="/">
-												<h5 className="text-xl leading-[33px] text-black font-medium">
-													{product.heading}
+												<h5 className=" text-xl leading-[33px] text-black font-medium">
+													{item.heading}
 												</h5>
 											</a>
 
 											<div className="text-base text-justify leading-6 text-secondary">
-												<p>{product.newsInput}</p>
+												<p>{item.description}</p>
 											</div>
 											<div className="flex gap-4">
 												<a
@@ -253,63 +141,68 @@ const ImpactSection = () => {
 
 
 											<div className='flex flex-row mb-5'>
+												{item.nbLike}
 												<BiLike className="mr-2" />
 												<IoShareSocial className="mr-2" />
 												{/* Button to open comment popup */}
 												<button onClick={handleCommentClick} className="mr-2" >Comment</button>
-												<RiStarSLine /> <RiStarSLine /> <RiStarSLine />  <RiStarSLine />
+												<RiStarSLine /> <RiStarSLine /><RiStarSLine /> <RiStarSLine /><RiStarSLine />
 											</div>
 										</div>
 									</div>
-								))}
-							</div>
+								))
+							}
+						</div>
+						<div>
 
-						{isLoggedIn ? (
-  isCommentPopupVisible && (
-    <CommentPopup
-      comment={comment}
-      setComment={setComment}
-      onClose={() => setCommentPopupVisibility(false)}
-      onSubmit={(commentData) => {
-        // Handle submitting comment data to the backend
-        console.log("Comment submitted:", commentData);
-        // You can make a backend API call to store the comment data
-        // and update the UI with the new comment
-        // For simplicity, just closing the popup here
-        setCommentPopupVisibility(false);
-      }}
-    />
-  )
-) : (
-  // Render an alert or a user-friendly message if the user is not logged in
-  <div className="p-4 bg-gray-200 rounded-md">
-    <p className="text-center text-lg text-gray-700">
-      Please log in to comment on the post.
-    </p>
-  </div>
-)}
 
-						<button onClick={handleAddNewsClick} className="bg-green-600 text-white p-2 rounded-md hover:bg-white hover:text-gray-600 border border-green-600 transition-colors duration-100">
-  Add News
-</button>
-{isLoggedIn ? (
-        isFormVisible && (
-          <FormForRegional
-            onFormSubmit={handleFormSubmit}
-            onCloseForm={handleCloseForm}
-          />
-        )
-      ) : (
-        <>
-          {showLoginPopup && <Login onClose={() => setShowLoginPopup(false)} />}
-          {/* You can replace the alert with a more user-friendly login prompt */}
-          {!showLoginPopup &&<div className="p-4 bg-gray-200 rounded-md">
-  <p className="text-center text-lg text-gray-700">
-    Please log in to add news.
-  </p>
-</div>}
-        </>
-)}
+
+							{isLoggedIn ? (
+								isCommentPopupVisible && (
+									<CommentPopup
+										comment={comment}
+										setComment={setComment}
+										onClose={() => setCommentPopupVisibility(false)}
+										onSubmit={(commentData) => {
+											// Handle submitting comment data to the backend
+											console.log("Comment submitted:", commentData);
+											// You can make a backend API call to store the comment data
+											// and update the UI with the new comment
+											// For simplicity, just closing the popup here
+											setCommentPopupVisibility(false);
+										}}
+									/>
+								)
+							) : (
+								// Render an alert or a user-friendly message if the user is not logged in
+								<div className="p-4 bg-gray-200 rounded-md">
+									<p className="text-center text-lg text-gray-700">
+										Please log in to comment on the post.
+									</p>
+								</div>
+							)}
+
+							<button onClick={handleAddNewsClick} className="bg-green-600 text-white p-2 rounded-md hover:bg-white hover:text-gray-600 border border-green-600 transition-colors duration-100">
+								Add News
+							</button>
+							{isLoggedIn ? (
+								isFormVisible && (
+									<FormForRegional
+										onFormSubmit={handleFormSubmit}
+										onCloseForm={handleCloseForm}
+									/>
+								)
+							) : (
+								<>
+									{showLoginPopup && <Login onClose={() => setShowLoginPopup(false)} />}
+									{/* You can replace the alert with a more user-friendly login prompt */}
+									{!showLoginPopup && <div className="p-4 bg-gray-200 rounded-md">
+										<p className="text-center text-lg text-gray-700">
+											Please log in to add news.
+										</p>
+									</div>}
+								</>
+							)}
 
 
 

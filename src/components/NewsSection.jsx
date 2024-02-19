@@ -3,112 +3,38 @@ import { AiTwotoneLike } from "react-icons/ai";
 import left from "../assets/svgs/left.svg";
 import right from "../assets/svgs/right.svg";
 import { FaShareAlt } from "react-icons/fa";
+import axios from "axios";
 // import FormForLatest from "./FormForLatest";
 
-// Sample data for the news items
-const newsItems = [
-	{
-		href: "#uk",
-		imgSrc: "https://picsum.photos/200/200?random=1",
-		alt: "News",
-		title: "United Kingdom",
-		subtitle: "Subtitle",
-		description:
-			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
-		icon: <AiTwotoneLike />,
-		icon2: <FaShareAlt />
-	},
-	{
-		href: "#usa",
-		imgSrc: "https://picsum.photos/200/200?random=2",
-		alt: "News",
-		title: "United States",
-		subtitle: "Subtitle",
-		description:
-			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
-		icon: <AiTwotoneLike />,
-		icon2: <FaShareAlt />
-	},
-	{
-		href: "#eu",
-		imgSrc: "https://picsum.photos/200/200?random=3",
-		alt: "News",
-		title: "European Union",
-		subtitle: "Subtitle",
-		description:
-			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
-		icon: <AiTwotoneLike />,
-		icon2: <FaShareAlt />
-	},
-
-	{
-		href: "#spain",
-		imgSrc: "https://picsum.photos/200/200?random=4",
-		alt: "News",
-		title: "Spain",
-		subtitle: "Subtitle",
-		description:
-			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
-		icon: <AiTwotoneLike />,
-		icon: <FaShareAlt />
-	},
-
-	{
-		href: "#germany",
-		imgSrc: "https://picsum.photos/200/200?random=5",
-		alt: "News",
-		title: "Germany",
-		subtitle: "subtitle",
-		description:
-			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
-		icon: <AiTwotoneLike />,
-		icon2: <FaShareAlt />
-	},
-
-	{
-		href: "#japan",
-		imgSrc: "https://picsum.photos/200/200?random=6",
-		alt: "News",
-		title: "Japan",
-		subtitle: "Subtitle",
-		description:
-			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
-		icon: <AiTwotoneLike />,
-		icon2: <FaShareAlt />
-	},
-
-	{
-		href: "#russia",
-		imgSrc: "https://picsum.photos/200/200?random=7",
-		alt: "News",
-		title: "Russia",
-		subtitle: "Subtitle",
-		description:
-			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
-		icon: <AiTwotoneLike />,
-		icon2: <FaShareAlt />
-	},
-
-	{
-		href: "#china",
-		imgSrc: "https://picsum.photos/200/200?random=8",
-		alt: "News",
-		title: "China",
-		subtitle: "Subtitle",
-		description:
-			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
-		icon: <AiTwotoneLike />,
-		icon2: <FaShareAlt />
-	},
-
-	// ... other news items
-];
 
 const NewsSection = () => {
-	const [isFormVisibles, setFormVisibilitys] = useState(false);
+	const [newsItems, setNewsItems] = useState([]);
 	const [isLeftButtonDisabled, setIsLeftButtonDisabled] = useState(true);
 	const [isRightButtonDisabled, setIsRightButtonDisabled] = useState(false);
 	const newsRef = useRef(null);
+
+	const fetchLatestNews = async () => {
+		try {
+			const response = await axios.get('http://localhost:8080/api/posts/type/Latest');
+			const latestNews = response.data.map(newsItem => ({
+				...newsItem,
+				imgSrc: newsItem.imageUrl,
+				href: `/news/${newsItem.id}`,
+				alt: newsItem.heading,
+				title: newsItem.heading,
+				description: newsItem.newsInput,
+				icon: <AiTwotoneLike />,
+				icon2: <FaShareAlt />
+			}));
+			setNewsItems(latestNews);
+		} catch (error) {
+			console.error('Failed to fetch latest news:', error);
+		}
+	};
+
+	useEffect(() => {
+		fetchLatestNews(); // Fetch latest news when component mounts
+	}, []);
 
 	const scroll = (direction) => {
 		const scrollAmount = direction === "left" ? -200 : 200;
@@ -118,16 +44,7 @@ const NewsSection = () => {
 			behavior: "smooth",
 		});
 	};
-	const handleCloseForms = () => {
-		setFormVisibilitys(false);
-	};
-	const handleAddNewsClick = () => {
-		setFormVisibilitys(true);
-	}
-	const handleFormSubmit = (formData) => {
-		// Handle form submission, e.g., send data to backend
-		console.log('Form data submitted:', formData);
-	};
+
 	const checkScrollButtons = () => {
 		const position = newsRef.current.scrollLeft;
 		const maxScrollLeft =
