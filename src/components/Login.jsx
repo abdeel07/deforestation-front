@@ -2,36 +2,39 @@ import React, { useState } from "react";
 import { useAuth } from '../contexts/AuthContext';  // Import the useAuth hook
 
 import SignUp from './SignUp';
+import axios from "axios";
 
 const Login = ({ onClose }) => {
   const { login } = useAuth();  // Use the useAuth hook to get authentication context functions
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
   const [showSignUp, setShowSignUp] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const student = { email, password };
 
     try {
-      const response = await fetch("http://localhost:8080/users/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(student),
-      });
+      const response = await axios.post("http://localhost:8080/api/users/login", { email, password });
 
-      if (response.ok) {
-        window.alert("Login Successful");
-        login();  // Call the login function from the authentication context
-        setEmail("");
-        setPassword("");
+      const { success, userId, message } = response.data;
+
+      if (success) {
+        login(userId);  // Update your global auth state with the logged-in user's ID
+        alert("Login Successful");
+        onClose(); // Close the login modal or redirect as needed
       } else {
-        alert("Wrong email or password!");
+        setError(message);
       }
     } catch (error) {
-      console.error("Error:", error.message);
+      const errorMessage = error.response && error.response.data && error.response.data.message
+        ? error.response.data.message
+        : "An error occurred during login.";
+      alert(errorMessage);
+      setError(errorMessage);
     }
   };
+
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
@@ -82,7 +85,7 @@ const Login = ({ onClose }) => {
           </button>
           <button
             type="button"  // Change to type="button" to prevent form submission
-            onClick={() => setShowSignUp(true)} 
+            onClick={() => setShowSignUp(true)}
             className="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-white hover:text-gray-600 border border-green-600 transition-colors duration-200"
           >
             Sign Up
