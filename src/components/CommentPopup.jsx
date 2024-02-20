@@ -1,46 +1,46 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 
-const CommentPopup = ({ comment, setComment, onClose, onSubmit }) => {
+const CommentPopup = ({ postId, onClose, onSubmit }) => {
+  const { userId } = useAuth();
+
+  const [comment, setComment] = useState('');
+
   const [showCommentApi, setShowCommentApi] = useState(false);
   const [loading, setLoading] = useState(false);
   const handleCommentChange = (e) => {
     setComment(e.target.value);
   };
+
+
   const handleAddComment = () => {
     setLoading(true);
-  
-    fetch('http://localhost:8080/do/comments', {
+    const commentPayload = {
+      comment: comment,
+      postId: postId,
+      userId: userId,
+    };
+
+    fetch('http://localhost:8080/api/comments', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(comment), // Send comment directly as a string
+      body: JSON.stringify(commentPayload),
     })
-      .then(response => {
-        if (response.ok) {
-          console.log("Comment added successfully");
-          return response.json(); // assuming the backend sends a response with details
-        } else {
-          throw new Error('Failed to add comment');
-        }
-      })
+      .then(response => response.json())
       .then(data => {
         onSubmit(comment);
         setShowCommentApi(true);
       })
-      .catch(error => {
-        console.error('Error adding comment:', error);
-        // Handle the error gracefully, e.g., show a user-friendly error message
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      .catch(error => console.error('Error adding comment:', error))
+      .finally(() => setLoading(false));
   };
-  
+
 
   useEffect(() => {
     if (!showCommentApi) {
-      setComment(''); // Clear the comment
+      setComment('');
     }
   }, [showCommentApi, setComment]);
 
@@ -71,13 +71,13 @@ const CommentPopup = ({ comment, setComment, onClose, onSubmit }) => {
             />
           </div>
           <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-          <button
-            onClick={handleAddComment}
-            disabled={loading}
-            className={`w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-          >
-            {loading ? 'Submitting...' : 'Submit'}
-          </button>
+            <button
+              onClick={handleAddComment}
+              disabled={loading}
+              className={`w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              {loading ? 'Submitting...' : 'Submit'}
+            </button>
             <button onClick={onClose} className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm">
               Close
             </button>

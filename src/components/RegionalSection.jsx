@@ -15,10 +15,10 @@ const ImpactSection = () => {
 	const [isFormVisible, setFormVisibility] = useState(false);
 	// const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [showLoginPopup, setShowLoginPopup] = useState(false);
-	const { isLoggedIn, login, logout } = useAuth();
-	const [products, setProducts] = useState([]);
+	const { isLoggedIn } = useAuth();
 	const [isCommentPopupVisible, setCommentPopupVisibility] = useState(false);
-	const [comment, setComment] = useState("");
+
+	const [selectedPostId, setSelectedPostId] = useState(null);
 
 	const [newsItems, setNewsItems] = useState([]);
 
@@ -51,29 +51,11 @@ const ImpactSection = () => {
 	const handleFormSubmit = () => {
 		fetchRegionalNews();
 	};
-	const handleCommentClick = () => {
-		// Show comment popup
+	const handleCommentClick = (postId) => {
+		setSelectedPostId(postId);
 		setCommentPopupVisibility(true);
 	};
-	useEffect(() => {
-		const fetchProducts = async () => {
-			try {
-				const response = await fetch('http://localhost:8080/deforestation/getAll');
 
-				if (!response.ok) {
-					throw new Error('Network response was not ok');
-				}
-
-				const data = await response.json();
-				console.log('Fetched products:', data);
-				setProducts(data);
-			} catch (error) {
-				console.error('Error fetching products:', error.message);
-			}
-		};
-
-		fetchProducts();
-	}, []);
 	return (
 		<>
 			<section id="impact" className="bg-gray-200  p-6">
@@ -145,7 +127,7 @@ const ImpactSection = () => {
 												<BiLike className="mr-2" />
 												<IoShareSocial className="mr-2" />
 												{/* Button to open comment popup */}
-												<button onClick={handleCommentClick} className="mr-2" >Comment</button>
+												<button onClick={() => handleCommentClick(item.id)} className="mr-2">Comment</button>
 												<RiStarSLine /> <RiStarSLine /><RiStarSLine /> <RiStarSLine /><RiStarSLine />
 											</div>
 										</div>
@@ -160,15 +142,9 @@ const ImpactSection = () => {
 							{isLoggedIn ? (
 								isCommentPopupVisible && (
 									<CommentPopup
-										comment={comment}
-										setComment={setComment}
+										postId={selectedPostId}
 										onClose={() => setCommentPopupVisibility(false)}
-										onSubmit={(commentData) => {
-											// Handle submitting comment data to the backend
-											console.log("Comment submitted:", commentData);
-											// You can make a backend API call to store the comment data
-											// and update the UI with the new comment
-											// For simplicity, just closing the popup here
+										onSubmit={() => {
 											setCommentPopupVisibility(false);
 										}}
 									/>
