@@ -23,23 +23,24 @@ const ImpactSection = () => {
 	const [newsItems, setNewsItems] = useState([]);
 
 	useEffect(() => {
-		const fetchRegionalNews = async () => {
-			try {
-				const response = await axios.get('http://localhost:8080/api/posts/type/Regional');
-
-				if (response.status === 200) {
-					console.log('Fetched regional news:', response.data);
-					setNewsItems(response.data);
-				} else {
-					throw new Error('Failed to fetch regional news');
-				}
-			} catch (error) {
-				console.error('Error fetching regional news:', error);
-			}
-		};
-
+		// Fetch regional news when the component mounts
 		fetchRegionalNews();
 	}, []);
+
+	const fetchRegionalNews = async () => {
+		try {
+			const response = await axios.get('http://localhost:8080/api/posts/type/Regional');
+
+			if (response.status === 200) {
+				console.log('Fetched regional news:', response.data);
+				setNewsItems(response.data);
+			} else {
+				throw new Error('Failed to fetch regional news');
+			}
+		} catch (error) {
+			console.error('Error fetching regional news:', error);
+		}
+	};
 
 	const handleAddNewsClick = () => {
 		setFormVisibility(true);
@@ -47,9 +48,8 @@ const ImpactSection = () => {
 	const handleCloseForm = () => {
 		setFormVisibility(false);
 	};
-	const handleFormSubmit = (formData) => {
-		// Handle form submission, e.g., send data to backend
-		console.log('Form data submitted:', formData);
+	const handleFormSubmit = () => {
+		fetchRegionalNews();
 	};
 	const handleCommentClick = () => {
 		// Show comment popup

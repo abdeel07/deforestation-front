@@ -1,20 +1,30 @@
 // AuthContext.js
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userId, setUserId] = useState(null); 
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("isLoggedIn") === "true"
+  );
+  const [userId, setUserId] = useState(localStorage.getItem("userId"));
+
+  useEffect(() => {
+    // Update localStorage whenever isLoggedIn or userId changes
+    localStorage.setItem("isLoggedIn", isLoggedIn);
+    localStorage.setItem("userId", userId);
+  }, [isLoggedIn, userId]);
 
   const login = (id) => {
     setIsLoggedIn(true);
-    setUserId(id); 
+    setUserId(id);
   };
 
   const logout = () => {
     setIsLoggedIn(false);
     setUserId(null);
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userId");
   };
 
   return (

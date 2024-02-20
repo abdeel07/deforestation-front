@@ -5,12 +5,14 @@ const FormForRegional = ({ onFormSubmit, onCloseForm }) => {
   const [newsInput, setNewsInput] = useState('');
   const [pageNumber, setPageNumber] = useState(1);
   const [selectedImage, setSelectedImage] = useState('');
+  const [articleType, setArticleType] = useState('Regional'); // Default to REGIONAL
+  const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
     // Fetch a random image URL from Unsplash API
     fetch('https://source.unsplash.com/random')
       .then((response) => {
-        setSelectedImage(response.url);
+        setImageUrl(response.url);
       })
       .catch((error) => {
         console.error('Error fetching image:', error);
@@ -28,24 +30,25 @@ const FormForRegional = ({ onFormSubmit, onCloseForm }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('heading', heading);
-    formData.append('newsInput', newsInput);
-    formData.append('selectedImage', selectedImage);
+    const articleData = {
+      heading,
+      newsInput,
+      type: articleType,
+      imageUrl,
+    };
 
     try {
       // Make a POST request to your backend API
-      const response = await fetch('http://localhost:8080/deforestation/regionalnews', {
+      const response = await fetch('http://localhost:8080/api/posts', {
         method: 'POST',
-       
-        body: formData,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(articleData),
       });
 
       // Check if the request was successful
       if (response.ok) {
-        const responseData = await response.json();
-        console.log('Response from backend:', responseData);
-        // You can handle the response as needed
+        onFormSubmit();
+        window.alert('Article submitted successfully!');
       } else {
         // Handle errors
         console.error('Error:', response.statusText);
@@ -94,6 +97,22 @@ const FormForRegional = ({ onFormSubmit, onCloseForm }) => {
                 className="border p-2 w-full"
               />
             </div>
+
+            <div className="mb-4">
+              <label htmlFor="articleType" className="block text-gray-700 text-sm font-bold mb-2">
+                Post Type:
+              </label>
+              <select
+                id="articleType"
+                value={articleType}
+                onChange={(e) => setArticleType(e.target.value)}
+                className="border p-2 w-full"
+              >
+                <option value="Regional">Regional</option>
+                <option value="Latest">Latest</option>
+              </select>
+            </div>
+
             <div className="flex items-center gap-4">
               <input
                 type="text"
@@ -103,10 +122,18 @@ const FormForRegional = ({ onFormSubmit, onCloseForm }) => {
                 className="border p-2 w-full"
               />
               <div className="mb-4">
-                <label htmlFor="image" className="block text-gray-700 text-sm font-bold mb-2">
-                  Image:
+                <label htmlFor="imageUrl" className="block text-gray-700 text-sm font-bold mb-2">
+                  Image URL:
                 </label>
-                <img src={selectedImage} alt="Random" className="border p-2 w-full" style={{ width: '250px', height: '200px' }} />
+                <input
+                  type="text"
+                  id="imageUrl"
+                  name="imageUrl"
+                  value={imageUrl}
+                  onChange={(e) => setImageUrl(e.target.value)}
+                  placeholder="Enter image URL..."
+                  className="border p-2 w-full"
+                />
               </div>
               <button
                 type="submit"
