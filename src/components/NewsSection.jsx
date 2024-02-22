@@ -4,101 +4,102 @@ import left from "../assets/svgs/left.svg";
 import right from "../assets/svgs/right.svg";
 import { FaShareAlt } from "react-icons/fa";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 // import FormForLatest from "./FormForLatest";
 
 const latestNews = [
 	{
 		href: "#uk",
-		imgSrc: "https://picsum.photos/200/200?random=1",
+		imageUrl: "https://picsum.photos/200/200?random=1",
 		alt: "News",
-		title: "United Kingdom",
+		heading: "United Kingdom",
 		subtitle: "Subtitle",
-		description:
+		newsInput:
 			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
-		icon: <AiTwotoneLike />,
-		icon2: <FaShareAlt />
+		icon: 'like',
+		icon2: 'share'
 	},
 	{
 		href: "#usa",
-		imgSrc: "https://picsum.photos/200/200?random=2",
+		imageUrl: "https://picsum.photos/200/200?random=2",
 		alt: "News",
-		title: "United States",
+		heading: "United States",
 		subtitle: "Subtitle",
-		description:
+		newsInput:
 			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
-		icon: <AiTwotoneLike />,
-		icon2: <FaShareAlt />
+		icon: 'like',
+		icon2: 'share'
 	},
 	{
 		href: "#eu",
-		imgSrc: "https://picsum.photos/200/200?random=3",
+		imageUrl: "https://picsum.photos/200/200?random=3",
 		alt: "News",
-		title: "European Union",
+		heading: "European Union",
 		subtitle: "Subtitle",
-		description:
+		newsInput:
 			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
-		icon: <AiTwotoneLike />,
-		icon2: <FaShareAlt />
+		icon: 'like',
+		icon2: 'share'
 	},
 
 	{
 		href: "#spain",
-		imgSrc: "https://picsum.photos/200/200?random=4",
+		imageUrl: "https://picsum.photos/200/200?random=4",
 		alt: "News",
-		title: "Spain",
+		heading: "Spain",
 		subtitle: "Subtitle",
-		description:
+		newsInput:
 			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
-		icon: <AiTwotoneLike />,
-		icon: <FaShareAlt />
+		icon: 'like',
+		icon2: 'share'
 	},
 
 	{
 		href: "#germany",
-		imgSrc: "https://picsum.photos/200/200?random=5",
+		imageUrl: "https://picsum.photos/200/200?random=5",
 		alt: "News",
-		title: "Germany",
+		heading: "Germany",
 		subtitle: "subtitle",
-		description:
+		newsInput:
 			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
-		icon: <AiTwotoneLike />,
-		icon2: <FaShareAlt />
+		icon: 'like',
+		icon2: 'share'
 	},
 
 	{
 		href: "#japan",
-		imgSrc: "https://picsum.photos/200/200?random=6",
+		imageUrl: "https://picsum.photos/200/200?random=6",
 		alt: "News",
-		title: "Japan",
+		heading: "Japan",
 		subtitle: "Subtitle",
-		description:
+		newsInput:
 			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
-		icon: <AiTwotoneLike />,
-		icon2: <FaShareAlt />
+		icon: 'like',
+		icon2: 'share'
 	},
 
 	{
 		href: "#russia",
-		imgSrc: "https://picsum.photos/200/200?random=7",
+		imageUrl: "https://picsum.photos/200/200?random=7",
 		alt: "News",
-		title: "Russia",
+		heading: "Russia",
 		subtitle: "Subtitle",
-		description:
+		newsInput:
 			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
-		icon: <AiTwotoneLike />,
-		icon2: <FaShareAlt />
+		icon: 'like',
+		icon2: 'share'
 	},
 
 	{
 		href: "#china",
-		imgSrc: "https://picsum.photos/200/200?random=8",
+		imageUrl: "https://picsum.photos/200/200?random=8",
 		alt: "News",
-		title: "China",
+		heading: "China",
 		subtitle: "Subtitle",
-		description:
+		newsInput:
 			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
-		icon: <AiTwotoneLike />,
-		icon2: <FaShareAlt />
+		icon: 'like',
+		icon2: 'share'
 	},
 
 	// ... other news items
@@ -115,13 +116,13 @@ const NewsSection = () => {
 			const response = await axios.get('http://localhost:8080/api/posts/type/Latest');
 			const latestNews = response.data.map(newsItem => ({
 				...newsItem,
-				imgSrc: newsItem.imageUrl,
+				imageUrl: newsItem.imageUrl,
 				href: `/news/${newsItem.id}`,
 				alt: newsItem.heading,
-				title: newsItem.heading,
-				description: newsItem.newsInput,
-				icon: <AiTwotoneLike />,
-				icon2: <FaShareAlt />
+				heading: newsItem.heading,
+				newsInput: newsItem.newsInput,
+				icon: 'like',
+				icon2: 'share'
 			}));
 			setNewsItems(latestNews);
 		} catch (error) {
@@ -156,6 +157,17 @@ const NewsSection = () => {
 		return () =>
 			newsContainer.removeEventListener("scroll", checkScrollButtons);
 	}, []);
+
+	const getIconComponent = (iconName) => {
+		switch (iconName) {
+			case 'like':
+				return <AiTwotoneLike />;
+			case 'share':
+				return <FaShareAlt />;
+			default:
+				return null; // Default case if the icon is not recognized
+		}
+	};
 
 	return (
 		<section id="news" className="p-12">
@@ -196,52 +208,63 @@ const NewsSection = () => {
 				>
 					{
 						latestNews.map((item, index) => (
-							<a key={index} href={item.href}>
+							<Link
+								key={index}
+								to={`/posts/details`}
+								state={{ item }}
+								className="news-item-link"
+							>
+
 								<div className="news">
 									<h2 className="text-lg font-mono">
-										{item.title}
+										{item.heading}
 									</h2>
 									{/* <div className="text-md">{item.subtitle}</div> */}
 
 									<img
 										className="rounded-lg h-20"
-										src={item.imgSrc}
+										src={item.imageUrl}
 										alt={item.alt}
 									/>
 									<div className="text-sm">
-										{item.description}
+										{item.newsInput}
 									</div>
-									<div className="text-sm flex flex-row ">
-										{item.icon} {/* First icon */}
-										{item.icon2}
+									<div className="text-sm flex flex-row">
+										{getIconComponent(item.icon)} {/* Dynamically render icons */}
+										{getIconComponent(item.icon2)}
 									</div>
 								</div>
-							</a>
+							</Link>
 						))
 					}
-					
+
 					{newsItems.map((item, index) => (
-						<a key={index} href={item.href}>
+						<Link
+							key={index}
+							to={`/posts/details`}
+							state={{ item }}
+							className="news-item-link"
+						>
 							<div className="news">
 								<h2 className="text-lg font-mono">
-									{item.title}
+									{item.heading}
 								</h2>
 								{/* <div className="text-md">{item.subtitle}</div> */}
 
 								<img
 									className="rounded-lg h-20"
-									src={item.imgSrc}
+									src={item.imageUrl}
 									alt={item.alt}
 								/>
 								<div className="text-sm">
-									{item.description}
+									{item.newsInput}
 								</div>
 								<div className="text-sm flex flex-row ">
 									{item.icon} {/* First icon */}
 									{item.icon2}
 								</div>
 							</div>
-						</a>
+						</Link>
 					))}
 				</div>
 				<div>

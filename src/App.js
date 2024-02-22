@@ -33,7 +33,7 @@ function App() {
             <Route path="/posts/:postId" element={<PostDetails />} />
           </Routes>
         </main>
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </Router>
   );

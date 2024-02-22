@@ -7,7 +7,7 @@ import FormForRegional from "./FormForRegional";
 import Login from './Login';
 import { useAuth } from '../contexts/AuthContext';
 import axios from 'axios';
-import { BiLike } from "react-icons/bi";
+import { BiDislike, BiLike } from "react-icons/bi";
 import CommentPopup from './CommentPopup';
 import { Link } from 'react-router-dom';
 
@@ -16,10 +16,13 @@ const ImpactSection = () => {
 	const [isFormVisible, setFormVisibility] = useState(false);
 	// const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [showLoginPopup, setShowLoginPopup] = useState(false);
-	const { isLoggedIn } = useAuth();
+	const { isLoggedIn, userId } = useAuth();
 	const [isCommentPopupVisible, setCommentPopupVisibility] = useState(false);
 
 	const [selectedPostId, setSelectedPostId] = useState(null);
+
+	const [likedPosts, setLikedPosts] = useState([]);
+
 
 	const [newsItems, setNewsItems] = useState([]);
 
@@ -33,7 +36,6 @@ const ImpactSection = () => {
 			const response = await axios.get('http://localhost:8080/api/posts/type/Regional');
 
 			if (response.status === 200) {
-				console.log('Fetched regional news:', response.data);
 				setNewsItems(response.data);
 			} else {
 				throw new Error('Failed to fetch regional news');
@@ -57,6 +59,39 @@ const ImpactSection = () => {
 		setCommentPopupVisibility(true);
 	};
 
+	const handleLikeDislikeClick = async (postId) => {
+		if (!isLoggedIn) {
+			setShowLoginPopup(true);
+			return;
+		}
+
+		const isLiked = likedPosts.includes(postId);
+		const endpoint = isLiked ? `/api/likes/unlike?userId=${userId}&postId=${postId}` : `/api/likes/like?userId=${userId}&postId=${postId}`;
+		const method = isLiked ? 'delete' : 'post';
+
+		try {
+			const response = await axios({
+				method: method,
+				url: `http://localhost:8080${endpoint}`,
+			});
+
+			if (response.status === 200) {
+				console.log(`Post ${isLiked ? 'disliked' : 'liked'} successfully`);
+				if (isLiked) {
+					setLikedPosts(likedPosts.filter(id => id !== postId)); // Remove post from likedPosts
+				} else {
+					setLikedPosts([...likedPosts, postId]); // Add post to likedPosts
+				}
+				fetchRegionalNews();
+			} else {
+				throw new Error(`Failed to ${isLiked ? 'dislike' : 'like'} the post`);
+			}
+		} catch (error) {
+			console.error(`Error ${isLiked ? 'disliking' : 'liking'} the post:`, error);
+		}
+	};
+
+
 	return (
 		<>
 			<section id="impact" className="bg-gray-200  p-6">
@@ -66,17 +101,17 @@ const ImpactSection = () => {
 							<div className="uppercase tracking-wide py-4 text-xl  text-indigo-500 font-semibold">
 								Regional News
 							</div>
-							<div class="flex items-center justify-start gap-2.5">
-								<button class="w-[30px] h-[30px] leading-[30px] text-[15px] rounded-md text-center bg-green-600 text-white hover:bg-white hover:text-gray-600  border border-green-600  transition-colors duration-100">
+							<div className="flex items-center justify-start gap-2.5">
+								<button className="w-[30px] h-[30px] leading-[30px] text-[15px] rounded-md text-center bg-green-600 text-white hover:bg-white hover:text-gray-600  border border-green-600  transition-colors duration-100">
 									1
 								</button>
-								<button class="w-[30px] h-[30px] leading-[30px] text-[15px] rounded-md text-center bg-green-600 text-white hover:bg-white hover:text-gray-600  border border-green-600  transition-colors duration-100">
+								<button className="w-[30px] h-[30px] leading-[30px] text-[15px] rounded-md text-center bg-green-600 text-white hover:bg-white hover:text-gray-600  border border-green-600  transition-colors duration-100">
 									2
 								</button>
-								<button class="w-[30px] h-[30px] leading-[30px] text-[15px] rounded-md text-center bg-green-600 text-white hover:bg-white hover:text-gray-600  border border-green-600  transition-colors duration-100">
+								<button className="w-[30px] h-[30px] leading-[30px] text-[15px] rounded-md text-center bg-green-600 text-white hover:bg-white hover:text-gray-600  border border-green-600  transition-colors duration-100">
 									3
 								</button>
-								<button class="w-[30px] h-[30px] leading-[30px] text-[15px] rounded-md text-center bg-green-600 text-white hover:bg-white hover:text-gray-600  border border-green-600  transition-colors duration-100">
+								<button className="w-[30px] h-[30px] leading-[30px] text-[15px] rounded-md text-center bg-green-600 text-white hover:bg-white hover:text-gray-600  border border-green-600  transition-colors duration-100">
 									<svg width="15" height="15" viewBox="0 0 32 32" className="m-auto">
 										<path
 											fill="currentColor"
@@ -249,7 +284,7 @@ const ImpactSection = () => {
 
 							{
 								newsItems.map((item, index) => (
-									<div className="rounded-lg shadow-lg border border-gray-300 bg-white p-4 flex gap-4 items-start justify-between">
+									<div className="rounded-lg shadow-lg border border-gray-300 bg-white p-4 flex gap-4 items-start justify-between" key={index}>
 										<img
 											src={item.imageUrl}
 											className=" h-[100px] object-contain rounded-md border border-solid shadow-md"
@@ -282,14 +317,18 @@ const ImpactSection = () => {
 											</div>
 
 
-											<div className='flex flex-row mb-5'>
+											<div className='flex flex-row mb-5' style={{ display: "flex", alignItems: "center" }}>
 												{item.nbLike}
-												<BiLike className="mr-2" />
+												{likedPosts.includes(item.id) ? (
+													<BiDislike className="mr-2 cursor-pointer" onClick={() => handleLikeDislikeClick(item.id)} />
+												) : (
+													<BiLike className="mr-2 cursor-pointer" onClick={() => handleLikeDislikeClick(item.id)} />
+												)}
 												<IoShareSocial className="mr-2" />
-												{/* Button to open comment popup */}
 												<button onClick={() => handleCommentClick(item.id)} className="mr-2">Comment</button>
 												<RiStarSLine /> <RiStarSLine /><RiStarSLine /> <RiStarSLine /><RiStarSLine />
 											</div>
+
 										</div>
 									</div>
 								))

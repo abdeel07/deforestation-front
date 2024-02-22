@@ -19,6 +19,7 @@ function PostDetails() {
                             src={item.imageUrl}
                             alt="News"
                             className="object-cover w-full h-64 rounded-md"
+                            style={{ objectFit: "contain" }}
                         />
                     )}
                 </div>

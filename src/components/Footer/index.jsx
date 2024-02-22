@@ -30,7 +30,7 @@ const Footer = () => {
 			<footer>
 				<div className="footer-wrapper">
 					<div className="social-wrapper">
-						<div class="social-links">
+						<div className="social-links">
 							<ul>
 								<li>
 									<a href="/" title="Instagram">

@@ -8,7 +8,6 @@ const CommentApi = () => {
     axios.get('http://localhost:8080/api/comments')
       .then(response => {
         setComments(response.data);
-        console.log("comments: ", response.data);
       })
       .catch(error => console.error('Error fetching comments:', error));
   }, []);
