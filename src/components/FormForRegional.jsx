@@ -6,18 +6,7 @@ const FormForRegional = ({ onFormSubmit, onCloseForm }) => {
   const [pageNumber, setPageNumber] = useState(1);
   const [selectedImage, setSelectedImage] = useState('');
   const [articleType, setArticleType] = useState('Regional'); // Default to REGIONAL
-  const [imageUrl, setImageUrl] = useState('');
-
-  useEffect(() => {
-    // Fetch a random image URL from Unsplash API
-    fetch('https://source.unsplash.com/random')
-      .then((response) => {
-        setImageUrl(response.url);
-      })
-      .catch((error) => {
-        console.error('Error fetching image:', error);
-      });
-  }, []); // Empty dependency array to run the effect only once on component mount
+  const [imageUrl, setImageUrl] = useState('https://picsum.photos/200/200?random=7');
 
   const handleInputChange = (e) => {
     setNewsInput(e.target.value);

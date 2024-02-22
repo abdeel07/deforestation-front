@@ -6,6 +6,103 @@ import { FaShareAlt } from "react-icons/fa";
 import axios from "axios";
 // import FormForLatest from "./FormForLatest";
 
+const latestNews = [
+	{
+		href: "#uk",
+		imgSrc: "https://picsum.photos/200/200?random=1",
+		alt: "News",
+		title: "United Kingdom",
+		subtitle: "Subtitle",
+		description:
+			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
+		icon: <AiTwotoneLike />,
+		icon2: <FaShareAlt />
+	},
+	{
+		href: "#usa",
+		imgSrc: "https://picsum.photos/200/200?random=2",
+		alt: "News",
+		title: "United States",
+		subtitle: "Subtitle",
+		description:
+			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
+		icon: <AiTwotoneLike />,
+		icon2: <FaShareAlt />
+	},
+	{
+		href: "#eu",
+		imgSrc: "https://picsum.photos/200/200?random=3",
+		alt: "News",
+		title: "European Union",
+		subtitle: "Subtitle",
+		description:
+			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
+		icon: <AiTwotoneLike />,
+		icon2: <FaShareAlt />
+	},
+
+	{
+		href: "#spain",
+		imgSrc: "https://picsum.photos/200/200?random=4",
+		alt: "News",
+		title: "Spain",
+		subtitle: "Subtitle",
+		description:
+			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
+		icon: <AiTwotoneLike />,
+		icon: <FaShareAlt />
+	},
+
+	{
+		href: "#germany",
+		imgSrc: "https://picsum.photos/200/200?random=5",
+		alt: "News",
+		title: "Germany",
+		subtitle: "subtitle",
+		description:
+			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
+		icon: <AiTwotoneLike />,
+		icon2: <FaShareAlt />
+	},
+
+	{
+		href: "#japan",
+		imgSrc: "https://picsum.photos/200/200?random=6",
+		alt: "News",
+		title: "Japan",
+		subtitle: "Subtitle",
+		description:
+			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
+		icon: <AiTwotoneLike />,
+		icon2: <FaShareAlt />
+	},
+
+	{
+		href: "#russia",
+		imgSrc: "https://picsum.photos/200/200?random=7",
+		alt: "News",
+		title: "Russia",
+		subtitle: "Subtitle",
+		description:
+			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
+		icon: <AiTwotoneLike />,
+		icon2: <FaShareAlt />
+	},
+
+	{
+		href: "#china",
+		imgSrc: "https://picsum.photos/200/200?random=8",
+		alt: "News",
+		title: "China",
+		subtitle: "Subtitle",
+		description:
+			"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi, temporibus.",
+		icon: <AiTwotoneLike />,
+		icon2: <FaShareAlt />
+	},
+
+	// ... other news items
+];
 
 const NewsSection = () => {
 	const [newsItems, setNewsItems] = useState([]);
@@ -97,6 +194,32 @@ const NewsSection = () => {
 					id="all-news"
 					className="flex gap-16 overflow-auto snap-x snap-mandatory"
 				>
+					{
+						latestNews.map((item, index) => (
+							<a key={index} href={item.href}>
+								<div className="news">
+									<h2 className="text-lg font-mono">
+										{item.title}
+									</h2>
+									{/* <div className="text-md">{item.subtitle}</div> */}
+
+									<img
+										className="rounded-lg h-20"
+										src={item.imgSrc}
+										alt={item.alt}
+									/>
+									<div className="text-sm">
+										{item.description}
+									</div>
+									<div className="text-sm flex flex-row ">
+										{item.icon} {/* First icon */}
+										{item.icon2}
+									</div>
+								</div>
+							</a>
+						))
+					}
+					
 					{newsItems.map((item, index) => (
 						<a key={index} href={item.href}>
 							<div className="news">

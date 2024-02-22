@@ -29,6 +29,7 @@ const SignUp = ({ onClose }) => {
         console.error("Error:", error);
         window.alert("An error occurred during signup. Please try again later.");
       });
+
   };
 
   return (

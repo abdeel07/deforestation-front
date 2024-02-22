@@ -9,6 +9,7 @@ import { useAuth } from '../contexts/AuthContext';
 import axios from 'axios';
 import { BiLike } from "react-icons/bi";
 import CommentPopup from './CommentPopup';
+import { Link } from 'react-router-dom';
 
 const ImpactSection = () => {
 
@@ -88,6 +89,164 @@ const ImpactSection = () => {
 
 
 						<div className="overflow-hidden flex flex-col gap-4">
+
+							<div className="rounded-lg shadow-lg border border-gray-300 bg-white p-4 flex gap-4 items-start justify-between">
+								<img
+									src="https://picsum.photos/200/200?random=1"
+									className=" h-[100px] object-contain rounded-md border border-solid shadow-md"
+									alt="news"
+								/>
+
+								<div className="flex-grow flex flex-col gap-2">
+									<a href="/">
+										<h5 className=" text-xl leading-[33px] text-black font-medium">
+											Lorem ipsum dolor sit amet.
+										</h5>
+									</a>
+
+									<div className="text-base text-justify leading-6 text-secondary">
+										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, voluptatum?</p>
+										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto perspiciatis laboriosam ipsum, doloribus sint voluptatibus numquam tempora excepturi nisi cum recusandae ipsa asperiores dicta illum debitis quae deserunt dolorem ullam?</p>
+									</div>
+									<div className="flex gap-4">
+										<Link
+											to="/posts/details" // Assuming you have a route for displaying details
+											state={{
+												item: {
+													heading: "Lorem ipsum dolor sit amet.",
+													newsInput: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto perspiciatis laboriosam ipsum, doloribus sint voluptatibus numquam tempora excepturi nisi cum recusandae ipsa asperiores dicta illum debitis quae deserunt dolorem ullam?",
+													imageUrl: "https://picsum.photos/200/200?random=1",
+													// Include any other relevant data for the news item
+												}
+											}}
+											className="underline text-green-600 hover:text-green-800 font-bold transition-colors duration-200"
+										>
+											View Details
+										</Link>
+										<a
+											href="/"
+											className="underline text-green-600 hover:text-green-800 font-bold transition-colors duration-200"
+										>
+											Add Bookmark
+										</a>
+									</div>
+
+									<div className='flex flex-row mb-5'>
+										<BiLike className="mr-2" />
+										<IoShareSocial className="mr-2" />
+										{/* Button to open comment popup */}
+										<button onClick={handleCommentClick} className="mr-2" >Comment</button>
+										<RiStarSLine /> <RiStarSLine /> <RiStarSLine />
+									</div>
+
+								</div>
+							</div>
+
+							<div className="rounded-lg shadow-lg border border-gray-300 bg-white p-4 flex gap-4 items-start justify-between">
+								<img
+									src="https://picsum.photos/200/200?random=2"
+									className=" h-[100px] object-contain rounded-md border border-solid shadow-md"
+									alt="news"
+								/>
+
+								<div className="flex-grow flex flex-col gap-2">
+									<a href="/">
+										<h5 className=" text-xl leading-[33px] text-black font-medium">
+											Lorem ipsum dolor sit amet.
+										</h5>
+									</a>
+
+									<div className="text-base text-justify leading-6 text-secondary">
+										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, voluptatum?</p>
+										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto perspiciatis laboriosam ipsum, doloribus sint voluptatibus numquam tempora excepturi nisi cum recusandae ipsa asperiores dicta illum debitis quae deserunt dolorem ullam?</p>
+									</div>
+									<div className="flex gap-4">
+										<Link
+											to="/posts/details" // Assuming you have a route for displaying details
+											state={{
+												item: {
+													heading: "Lorem ipsum dolor sit amet.",
+													newsInput: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto perspiciatis laboriosam ipsum, doloribus sint voluptatibus numquam tempora excepturi nisi cum recusandae ipsa asperiores dicta illum debitis quae deserunt dolorem ullam?",
+													imageUrl: "https://picsum.photos/200/200?random=2",
+													// Include any other relevant data for the news item
+												}
+											}}
+											className="underline text-green-600 hover:text-green-800 font-bold transition-colors duration-200"
+										>
+											View Details
+										</Link>
+										<a
+											href="/"
+											className="underline text-green-600 hover:text-green-800 font-bold transition-colors duration-200"
+										>
+											Add Bookmark
+										</a>
+									</div>
+
+
+									<div className='flex flex-row mb-5'>
+										<BiLike className="mr-2" />
+										<IoShareSocial className="mr-2" />
+										{/* Button to open comment popup */}
+										<button onClick={handleCommentClick} className="mr-2" >Comment</button>
+										<RiStarSLine /> <RiStarSLine /> <RiStarSLine />  <RiStarSLine />  <RiStarSLine />
+									</div>
+
+								</div>
+							</div>
+
+							<div className="rounded-lg shadow-lg border border-gray-300 bg-white p-4 flex gap-4 items-start justify-between">
+								<img
+									src="https://picsum.photos/200/200?random=3"
+									className=" h-[100px] object-contain rounded-md border border-solid shadow-md"
+									alt="news"
+								/>
+
+								<div className="flex-grow flex flex-col gap-2">
+									<a href="/">
+										<h5 className=" text-xl leading-[33px] text-black font-medium">
+											Lorem ipsum dolor sit amet.
+										</h5>
+									</a>
+
+									<div className="text-base text-justify leading-6 text-secondary">
+										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, voluptatum?</p>
+										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto perspiciatis laboriosam ipsum, doloribus sint voluptatibus numquam tempora excepturi nisi cum recusandae ipsa asperiores dicta illum debitis quae deserunt dolorem ullam?</p>
+									</div>
+									<div className="flex gap-4">
+										<Link
+											to="/posts/details" // Assuming you have a route for displaying details
+											state={{
+												item: {
+													heading: "Lorem ipsum dolor sit amet.",
+													newsInput: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto perspiciatis laboriosam ipsum, doloribus sint voluptatibus numquam tempora excepturi nisi cum recusandae ipsa asperiores dicta illum debitis quae deserunt dolorem ullam?",
+													imageUrl: "https://picsum.photos/200/200?random=3",
+													// Include any other relevant data for the news item
+												}
+											}}
+											className="underline text-green-600 hover:text-green-800 font-bold transition-colors duration-200"
+										>
+											View Details
+										</Link>
+										<a
+											href="/"
+											className="underline text-green-600 hover:text-green-800 font-bold transition-colors duration-200"
+										>
+											Add Bookmark
+										</a>
+									</div>
+
+
+									<div className='flex flex-row mb-5'>
+										<BiLike className="mr-2" />
+										<IoShareSocial className="mr-2" />
+										{/* Button to open comment popup */}
+										<button onClick={handleCommentClick} className="mr-2" >Comment</button>
+										<RiStarSLine /> <RiStarSLine />
+									</div>
+								</div>
+							</div>
+
 							{
 								newsItems.map((item, index) => (
 									<div className="rounded-lg shadow-lg border border-gray-300 bg-white p-4 flex gap-4 items-start justify-between">
@@ -104,15 +263,16 @@ const ImpactSection = () => {
 											</a>
 
 											<div className="text-base text-justify leading-6 text-secondary">
-												<p>{item.description}</p>
+												<p>{item.newsInput}</p>
 											</div>
 											<div className="flex gap-4">
-												<a
-													href="/"
+												<Link
+													to={`/posts/details`}
+													state={{ item }}
 													className="underline text-green-600 hover:text-green-800 font-bold transition-colors duration-200"
 												>
 													View Details
-												</a>
+												</Link>
 												<a
 													href="/"
 													className="underline text-green-600 hover:text-green-800 font-bold transition-colors duration-200"
@@ -186,7 +346,7 @@ const ImpactSection = () => {
 					</div>
 
 				</div>
-			</section>
+			</section >
 		</>
 	);
 };
