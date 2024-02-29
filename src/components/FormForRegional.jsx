@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const FormForRegional = ({ onFormSubmit, onCloseForm }) => {
   const [heading, setHeading] = useState('');
   const [newsInput, setNewsInput] = useState('');
   const [pageNumber, setPageNumber] = useState(1);
-  const [selectedImage, setSelectedImage] = useState('');
   const [articleType, setArticleType] = useState('Regional'); // Default to REGIONAL
   const [imageUrl, setImageUrl] = useState('https://picsum.photos/200/200?random=7');
 

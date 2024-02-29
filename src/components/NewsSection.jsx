@@ -170,7 +170,7 @@ const NewsSection = () => {
 	};
 
 	return (
-		<section id="news" className="p-12">
+		<section id="news" className="p-12" style={{ marginTop: "50px" }}>
 			<div className="container">
 				<div className="action-buttons">
 					<div className="uppercase tracking-wide text-xl  text-indigo-500 font-semibold">

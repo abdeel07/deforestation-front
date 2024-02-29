@@ -1,6 +1,6 @@
 // src/components/Header.js
 import React, { useState, useEffect } from "react";
-import logoImage from "../assets/images/logo/logo.png"; // Import your logo image
+// import logoImage from "../assets/images/logo/logo.png"; // Import your logo image
 import Login from './Login';
 import SignUp from './SignUp';
 import { useAuth } from "../contexts/AuthContext";
@@ -45,16 +45,21 @@ const Header = () => {
 
 	return (
 		<header
-			className={`fixed top-0 left-0 w-full z-10 transition-all duration-300 ease-in-out ${isScrolled ? "bg-white shadow-lg" : "bg-transparent"
-				}`}
+			className={`fixed top-0 left-0 w-full z-10 transition-all duration-300 ease-in-out bg-white shadow-lg}`}
+			style={{
+				backgroundColor: "white",
+				boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)",
+				padding: "1rem",
+			}}
 		>
 			<div className="container mx-auto flex justify-between items-center p-1">
-				<img
+				{/* <img
 					src={logoImage}
 					alt="Logo"
 					className=" h-10 sm:h-14	w-auto"
-				/>
+				/> */}
 				{/* Logo image */}
+				<div></div>
 				<nav>
 					<ul className="flex space-x-4">
 						<li>

@@ -9,7 +9,7 @@ const Login = ({ onClose }) => {
   const [showSignUp, setShowSignUp] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
