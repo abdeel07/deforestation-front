@@ -62,39 +62,6 @@ const Header = () => {
 				<div></div>
 				<nav>
 					<ul className="flex space-x-4">
-						<li>
-							<a
-								href="#about"
-								className={`${isScrolled
-									? "bg-green-600 text-white hover:bg-white hover:text-gray-600  border border-green-600"
-									: "bg-white text-green-800 hover:bg-green-600 hover:text-white"
-									}  font-bold py-1 px-4 rounded-md transition-colors duration-200`}
-							>
-								About
-							</a>
-						</li>
-						<li>
-							<a
-								href="#impact"
-								className={`${isScrolled
-									? "bg-green-600 text-white hover:bg-white hover:text-gray-600  border border-green-600"
-									: "bg-white text-green-800 hover:bg-green-600 hover:text-white"
-									}  font-bold py-1 px-4 rounded-md transition-colors duration-200`}
-							>
-								Impact
-							</a>
-						</li>
-						<li>
-							<a
-								href="#solutions"
-								className={`${isScrolled
-									? "bg-green-600 text-white hover:bg-white hover:text-gray-600  border border-green-600"
-									: "bg-white text-green-800 hover:bg-green-600 hover:text-white"
-									}  font-bold py-1 px-4 rounded-md transition-colors duration-200`}
-							>
-								Solutions
-							</a>
-						</li>
 						{!isLoggedIn ? (
 							<li>
 								<a
