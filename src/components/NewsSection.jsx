@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 const latestNews = [
 	{
 		href: "#uk",
-		imageUrl: "https://picsum.photos/200/200?random=1",
+		imageUrl: "https://www.conserve-energy-future.com/wp-content/uploads/2013/03/deforestation-logging-cut-forests.jpg",
 		alt: "News",
 		heading: "United Kingdom",
 		subtitle: "Subtitle",
@@ -21,7 +21,7 @@ const latestNews = [
 	},
 	{
 		href: "#usa",
-		imageUrl: "https://picsum.photos/200/200?random=2",
+		imageUrl: "https://news.mit.edu/sites/default/files/images/202309/MIT-Deforestation-Crisis-01-press.jpg",
 		alt: "News",
 		heading: "United States",
 		subtitle: "Subtitle",
@@ -32,7 +32,7 @@ const latestNews = [
 	},
 	{
 		href: "#eu",
-		imageUrl: "https://picsum.photos/200/200?random=3",
+		imageUrl: "https://sentientmedia.org/wp-content/uploads/2022/07/Madagascar_Deforestation.jpg",
 		alt: "News",
 		heading: "European Union",
 		subtitle: "Subtitle",
@@ -44,7 +44,7 @@ const latestNews = [
 
 	{
 		href: "#spain",
-		imageUrl: "https://picsum.photos/200/200?random=4",
+		imageUrl: "https://u4d2z7k9.rocketcdn.me/wp-content/uploads/2022/03/Untitled-1024-%C3%97-768px-2.jpg",
 		alt: "News",
 		heading: "Spain",
 		subtitle: "Subtitle",
@@ -56,7 +56,7 @@ const latestNews = [
 
 	{
 		href: "#germany",
-		imageUrl: "https://picsum.photos/200/200?random=5",
+		imageUrl: "https://pachamama.org/hubfs/images/gryffyn-m-axE5o1Xh7_Q-unsplash%20(1)-1.jpg",
 		alt: "News",
 		heading: "Germany",
 		subtitle: "subtitle",
@@ -68,7 +68,7 @@ const latestNews = [
 
 	{
 		href: "#japan",
-		imageUrl: "https://picsum.photos/200/200?random=6",
+		imageUrl: "https://t3.ftcdn.net/jpg/01/04/18/04/360_F_104180448_x8CMAaiOu5EsLF75rhOJM3IB1httlJcY.jpg",
 		alt: "News",
 		heading: "Japan",
 		subtitle: "Subtitle",
@@ -80,7 +80,7 @@ const latestNews = [
 
 	{
 		href: "#russia",
-		imageUrl: "https://picsum.photos/200/200?random=7",
+		imageUrl: "https://www.eurokidsindia.com/blog/wp-content/uploads/2023/10/deforestation.jpg",
 		alt: "News",
 		heading: "Russia",
 		subtitle: "Subtitle",
@@ -92,7 +92,7 @@ const latestNews = [
 
 	{
 		href: "#china",
-		imageUrl: "https://picsum.photos/200/200?random=8",
+		imageUrl: "https://www.ucsusa.org/sites/default/files/styles/thumbnail/public/images/tfci-drivers-riau-one-tree.jpg?itok=hyGhHqCA",
 		alt: "News",
 		heading: "China",
 		subtitle: "Subtitle",

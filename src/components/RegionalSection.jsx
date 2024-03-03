@@ -127,7 +127,7 @@ const ImpactSection = () => {
 
 							<div className="rounded-lg shadow-lg border border-gray-300 bg-white p-4 flex gap-4 items-start justify-between">
 								<img
-									src="https://picsum.photos/200/200?random=1"
+									src="https://images.nationalgeographic.org/image/upload/t_edhub_resource_key_image/v1652341008/EducationHub/photos/deforestation.jpg"
 									className=" h-[100px] object-contain rounded-md border border-solid shadow-md"
 									alt="news"
 								/>
@@ -179,7 +179,7 @@ const ImpactSection = () => {
 
 							<div className="rounded-lg shadow-lg border border-gray-300 bg-white p-4 flex gap-4 items-start justify-between">
 								<img
-									src="https://picsum.photos/200/200?random=2"
+									src="https://news.mit.edu/sites/default/files/images/202309/MIT-Deforestation-Crisis-01-press.jpg"
 									className=" h-[100px] object-contain rounded-md border border-solid shadow-md"
 									alt="news"
 								/>
@@ -232,7 +232,7 @@ const ImpactSection = () => {
 
 							<div className="rounded-lg shadow-lg border border-gray-300 bg-white p-4 flex gap-4 items-start justify-between">
 								<img
-									src="https://picsum.photos/200/200?random=3"
+									src="https://www.conserve-energy-future.com/wp-content/uploads/2013/03/deforestation-logging-cut-forests.jpg"
 									className=" h-[100px] object-contain rounded-md border border-solid shadow-md"
 									alt="news"
 								/>
